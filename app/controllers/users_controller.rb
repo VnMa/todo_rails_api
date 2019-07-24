@@ -1,17 +1,13 @@
 class UsersController < ApplicationController
   def create
-    # @user = User.new(user_params)
+    @user = User.new(user_params)
 
-    # if @user.save
-    #   @user.send_activation_email
-    #   render :json => {success: true, info: 'Please check your email to activate your account', user: user}
-    # else
-    #   render :json => {success: false, errors: @user.errors.full_messages}
-    # end
-    @user = User.find_by(email: 'akira.an111@gmail.com')
-    email = @user.send_activation_email
-
-    render :json => {success: true, email: email}
+    if @user.save
+      @user.send_activation_email
+      render :json => {success: true, info: 'Please check your email to activate your account', user: @user}
+    else
+      render :json => {success: false, errors: @user.errors.full_messages}
+    end
   end
 
   def welcome
