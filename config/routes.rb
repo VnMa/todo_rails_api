@@ -1,4 +1,6 @@
 Rails.application.routes.draw do  
+  get 'password_resets/new'
+  get 'password_resets/edit'
   # post 'sessions' => 'sessions#create'
 
   resources :sessions, only: [:create]
@@ -10,5 +12,9 @@ Rails.application.routes.draw do
 
   resources :account_activations
   get 'account_activations/:id/edit' => 'account_activations#edit'
+
+  resources :password_resets
+  get 'account_activations/:id/edit' => 'password_resets#edit'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

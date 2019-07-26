@@ -3,11 +3,9 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
 
     if user && user.authenticate(params[:password])
-      if (!user.activated)
-        render :json => {success: false, error: 'Please check your email to activate account'}
-      else
-        render :json => {success: true, user: user}
-      end
+      user.remember
+      jwt_data = JsonWebToken.encode(user)
+      render :json => {success: true, jwt_data: jwt_data, remember_token: user.remember_token}
     else
       render :json => {success: false, error: 'Invalid username / password'}
     end

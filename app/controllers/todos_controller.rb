@@ -1,7 +1,11 @@
 class TodosController < ApplicationController
+  include ::MyErrors
+  include ::Helpers
+  prepend_before_action :authenticate_request_token!
+
   def index
     @todos = ::Todo.all.limit(20)
-    render :json => @todos
+    render :json => {user: @current_user, data:  @todos}
   end
 
   def create
