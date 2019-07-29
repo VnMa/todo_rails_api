@@ -18,6 +18,10 @@ class UsersController < ApplicationController
   end
 
   def index
+    users = User.all
+    total = User.count
+
+    render :json => {users: users, total: total}
   end
 
   def show

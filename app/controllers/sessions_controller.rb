@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       jwt_data = JsonWebToken.encode(user)
       render :json => {success: true, jwt_data: jwt_data, remember_token: user.remember_token}
     else
-      render :json => {success: false, error: 'Invalid username / password'}
+      render :json => {success: false, error: 'Invalid username / password'}, status: 401
     end
   end
 end
